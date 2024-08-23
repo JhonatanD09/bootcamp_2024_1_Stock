@@ -1,20 +1,18 @@
 package com.bootcamp.Stock.infraestructure.out.mapper;
 
 import com.bootcamp.Stock.domain.model.Category;
+import com.bootcamp.Stock.domain.model.Trademark;
 import com.bootcamp.Stock.infraestructure.out.entity.CategoryEntity;
+import com.bootcamp.Stock.infraestructure.out.entity.TrademarkEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
+public interface ITrademarkEntityMapper {
 
-public interface ICategoryEntityMapper {
+    TrademarkEntity toTrademarkEntity(Trademark trademark);
 
-    ICategoryEntityMapper INSTANCE = Mappers.getMapper(ICategoryEntityMapper.class);
-    CategoryEntity toCategoryEntity(Category category);
-
-    Category toCategory(CategoryEntity categoryEntity);
-
+    Trademark toTrademark(TrademarkEntity trademarkEntity);
 }

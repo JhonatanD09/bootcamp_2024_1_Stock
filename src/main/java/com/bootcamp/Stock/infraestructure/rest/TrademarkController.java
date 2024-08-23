@@ -2,7 +2,9 @@ package com.bootcamp.Stock.infraestructure.rest;
 
 import com.bootcamp.Stock.application.dto.category.CategoryRequest;
 import com.bootcamp.Stock.application.dto.category.CategoryResponse;
-import com.bootcamp.Stock.application.handler.category.IHandlerCategory;
+import com.bootcamp.Stock.application.dto.trademark.TrademarkRequest;
+import com.bootcamp.Stock.application.dto.trademark.TrademarkResponse;
+import com.bootcamp.Stock.application.handler.trademark.IHandlerTrademark;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,13 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/trademark")
 @RequiredArgsConstructor
-public class CategoryController {
+public class TrademarkController {
 
-    private final IHandlerCategory iHandlerCategory;
+    private final IHandlerTrademark iHandlerTrademark;
 
-    @Operation(summary = "Add a new category")
+    @Operation(summary = "Add a new trademark")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created", content = @Content),
             @ApiResponse(responseCode = "409", description = "Category already exists", content = @Content),
@@ -29,15 +31,14 @@ public class CategoryController {
             @ApiResponse(responseCode = "400", description = "Invalid data", content = @Content)
     })
     @PostMapping("/")
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequest categoryRequest) {
-        iHandlerCategory.saveCategory(categoryRequest);
+
+    public ResponseEntity<Void> saveTrademark(@RequestBody TrademarkRequest request) {
+        iHandlerTrademark.createTrademark(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/")
-    public  ResponseEntity<Page<CategoryResponse>> getAllCategories(@RequestParam(name = "order", defaultValue = "asc") String order, Pageable pageable){
-        return new ResponseEntity<>(iHandlerCategory.getAllCategories(order,pageable),HttpStatus.OK);
+    public  ResponseEntity<Page<TrademarkResponse>> getAllCategories(@RequestParam(name = "order", defaultValue = "asc") String order, Pageable pageable){
+        return new ResponseEntity<>(iHandlerTrademark.getAllTrademarks(order,pageable),HttpStatus.OK);
     }
-
-
 }

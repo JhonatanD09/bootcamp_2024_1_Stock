@@ -17,7 +17,6 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     @Override
     public void createCategory(Category category) {
-        System.out.println("USECASE"+ category.getName());
         iCategoryPersistencePort.createCategory(category);
     }
 
